@@ -20,6 +20,8 @@ with open(infile,'r')as f:
         if 'NeoRank' in line:
             continue
         hla,somaticpep,somaticscore,*_,wildscore,wildpep=line.split('\t')[2:8]
+        if somaticpep == wildpep:
+            continue
         ch,pos,*_,cds=line.split('\t')[9:13]
         mutation='_'.join([ch,pos,cds,str(len(somaticpep)),hla])
         fastafile.write('>%s|MT|%d|%s\n%s\n'%(sample,num,mutation,somaticpep))
